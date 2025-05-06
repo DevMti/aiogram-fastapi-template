@@ -8,7 +8,7 @@ from aiogram.exceptions import TelegramRetryAfter
 from aiogram_fastapi_server import SimpleRequestHandler, setup_application
 
 from db import init_db
-from bot.handlers import start_router
+from bot.handlers import routers
 from config import BOT_TOKEN, REDIS_URL
 from config import ( WEBHOOK_URL, WEBHOOK_SECRET, WEBHOOK_PATH, 
     ALLOWED_UPDATES, MAX_CONNECTIONS, DROP_PENDING_UPDATES
@@ -19,7 +19,7 @@ api_router  = APIRouter()
 async def pong():
     return {"response": "pong"}
 
-logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+logging.basicConfig(level=logging.INFO, stream=sys.stdout, format='%(levelname)s:     %(message)s')
 
 async def main_startup(bot: Bot):
     try:
@@ -45,7 +45,7 @@ dp.startup.register(main_startup)
 app = FastAPI()
 app.include_router(api_router)
 bot = Bot(token=BOT_TOKEN)
-dp.include_routers(start_router)
+dp.include_routers(routers)
 
 logging.getLogger('aiogram').setLevel(logging.WARNING)
 
