@@ -16,7 +16,9 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(32))
     first_name: Mapped[Optional[str]] = mapped_column(String(64))
     last_name: Mapped[Optional[str]] = mapped_column(String(64))
+    language: Mapped[str] = mapped_column(String(16))
 
     def __repr__(self):
         return (f"<User(user_id={self.user_id}, username='{self.username}', "
-                f"first_name='{self.first_name}', last_name='{self.last_name}'")
+                f"first_name='{self.first_name}', last_name='{self.last_name}'"
+                f"language='{self.language}'")

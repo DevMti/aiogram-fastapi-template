@@ -8,6 +8,8 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN", "12345:abcdefghijklmnopq")
 BOT_ID = os.getenv("BOT_ID", "12345")
 
+SUPPORTED_LANGUAGES = ['en', 'fa']
+DEFAULT_LANGUAGE = 'en'
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 

@@ -1,7 +1,8 @@
 from aiogram import types, Router
 from aiogram.filters import Command
 from db import create_user, get_user
-from config import BOT_ID
+from config import BOT_ID, DEFAULT_LANGUAGE
+from bot.translation import texts
 
 start_router: Router = Router()
 
@@ -11,10 +12,11 @@ async def start_handler(message: types.Message):
     first_name = message.from_user.first_name
     last_name = message.from_user.last_name
     username = message.from_user.username
+    language = message.from_user.language_code if message.from_user.language_code is not None else DEFAULT_LANGUAGE
 
     user = await get_user(telegram_id, BOT_ID)
     if user is None:
-        user = await create_user(telegram_id, BOT_ID, first_name, last_name, username)
-        await message.answer(f"Hello, {user.first_name}! Your profile has been created.")
+        user = await create_user(telegram_id, BOT_ID, first_name, language, last_name, username)
+        await message.answer(texts.WELCOME.value)
     else:
-        await message.answer(f"Hello, {user.first_name}! welcome back.")
+        await message.answer(texts.WELCOME_BACK.value)
